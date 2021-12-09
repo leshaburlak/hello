@@ -114,7 +114,13 @@
           (obfuscate "+7 925 a75 67 99")))
     ;; contains a @
     (is (thrown-with-msg? Exception #"could not recognize input"
-          (obfuscate "+7 925 a75 67 99")))
+          (obfuscate "+7 925 @75 67 99")))
+    ;; plus is somewhere in the middle
+    (is (thrown-with-msg? Exception #"could not recognize input"
+          (obfuscate "77+7 925 175 67 99")))
+    ;; plus is at the end
+    (is (thrown-with-msg? Exception #"could not recognize input"
+          (obfuscate "777 925 175 67 99+")))
 
     ;;;;;;;;;;;;;;;;;
     ;; emails
@@ -125,7 +131,6 @@
     ;; no @
     (is (thrown-with-msg? Exception #"could not recognize input"
           (obfuscate "example.example.com")))
-
     ;; underscore in domain part
     (is (thrown-with-msg? Exception #"could not recognize input"
           (obfuscate "example@hello_there.com")))))
