@@ -8,4 +8,8 @@
   :source-paths ["src"]
   :test-paths ["test"]
   :target-path "target/%s"
-  :profiles {:uberjar {:aot :all}})
+  :profiles {:repl
+             {:dependencies [[org.clojure/tools.namespace "0.2.10"]]
+              :repl-options {:init-ns hello.core}
+              :injections [(require 'clojure.tools.namespace.repl)
+                           (require '[clojure.tools.namespace.repl :refer [refresh]])]}})
